@@ -1,0 +1,1 @@
+python scripts/train/train.py scripts/train/yamls/mpt/finetune/7b_dolly_ja.yaml load_path=""

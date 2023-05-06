@@ -314,3 +314,38 @@ def muennighoff_tokenize_function(inp: Dict):
         raise ValueError(
             f'Unable to process prompt/response from {inp=}') from e
     return {'prompt': prompt, 'response': response}
+
+
+@dataset_constructor.register('kunishou/databricks-dolly-15k-ja')
+def dolly_ja_preprocessing_function(inp: Dict):
+    """Format the text string."""
+    PROMPT_FORMAT = '以下は、あるタスクを記述した指示です。依頼を適切に完了させる回答を書きなさい。\n\n### 指示:\n{instruction}\n\n### 応答:\n'
+    try:
+        if inp['input'] != '':
+            instruction = inp['instruction'] + '\n' + inp['input']
+        else:
+            instruction = inp['instruction']
+        prompt = PROMPT_FORMAT.format(instruction=instruction)
+        response = inp['output']
+    except Exception as e:
+        raise ValueError(
+            f'Unable to extract prompt/response from {inp=}') from e
+    return {'prompt': prompt, 'response': response}
+
+
+@dataset_constructor.register('kunishou/oasst1-89k-ja')
+def oasst_ja_preprocessing_function(inp: Dict):
+    """Format the text string."""
+    PROMPT_FORMAT = '以下は、あるタスクを記述した指示です。依頼を適切に完了させる回答を書きなさい。\n\n### 指示:\n{instruction}\n\n### 応答:\n'
+    try:
+        if inp['input'] != '':
+            instruction = inp['instruction'] + '\n' + inp['input']
+        else:
+            instruction = inp['instruction']
+        prompt = PROMPT_FORMAT.format(instruction=instruction)
+        response = inp['output']
+    except Exception as e:
+        raise ValueError(
+            f'Unable to extract prompt/response from {inp=}') from e
+    return {'prompt': prompt, 'response': response}
+
